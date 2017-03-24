@@ -1,0 +1,33 @@
+{
+  "name": "om-core-ui",
+  "version": "0.0.1",
+  "homepage": "https://github.com/nkhoang/om-core-ui",
+  "main": [
+    "dist/fonts/glyphicons-halflings-regular.eot",
+    "dist/fonts/glyphicons-halflings-regular.svg",
+    "dist/fonts/glyphicons-halflings-regular.ttf",
+    "dist/fonts/glyphicons-halflings-regular.woff",
+    "dist/fonts/glyphicons-halflings-regular.woff2"
+  ],
+  "ignore": [],
+  "dependencies": {
+    "angular": "1.6.3",
+    "jquery": "3.2.1",
+    "angular-resource": "1.6.3",
+    "angular-ui-router": "0.4.2",
+    "angular-bootstrap": "2.5.0",
+    "lodash": "4.17.4",
+    "nprogress": "0.2.0",
+    "bootstrap-sweetalert": "1.0.1",
+    "blockUI": "blockui#*",
+    "spin.js": "2.3.2",
+    "angular-translate": "2.15.1",
+    "angular-translate-handler-log": "2.15.1",
+    "angular-translate-loader-static-files": "2.15.1",
+    "angular-translate-storage-cookie": "2.15.1",
+    "angular-translate-storage-local": "2.15.1",
+    "moment": "2.18.1",
+    "bootstrap-sass": "bootstrap-sass-official#3.3.7"
+  },
+  "devDependencies": {}
+}

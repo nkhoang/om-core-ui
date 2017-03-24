@@ -1,0 +1,25 @@
+<section id="login-section">
+  <h3 translate>login.form.title</h3>
+  <form name="loginForm" novalidate>
+    <div class="alert alert-warning" ng-show="loginForm.$invalid && loginForm.$dirty" translate>
+      login.form.invalid
+    </div>
+    <div class="alert alert-warning" ng-show="loginCtrl.error.authentication" translate>
+      login.authentication.failure
+    </div>
+    <div class="form-group">
+      <label translate>login.form.username.title</label>
+      <input class="form-control" ng-model="loginCtrl.data.username" name="username"
+             ng-focus="loginCtrl.clearErrors()" autofocus required/>
+    </div>
+    <div class="form-group">
+      <label translate>login.form.password.title</label>
+      <input type="password" class="form-control" ng-model="loginCtrl.data.password" name="password"
+             ng-focus="loginCtrl.clearErrors()" required/>
+    </div>
+
+    <button class="btn btn-primary" type="submit" ng-disabled="loginForm.$invalid"
+            ng-click="loginCtrl.login(loginForm)" translate>common.button.login
+    </button>
+  </form>
+</section>
