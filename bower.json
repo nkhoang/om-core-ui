@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "homepage": "https://github.com/nkhoang/om-core-ui",
   "main": [
+    "dist/styles/om-core.css",
+    "dist/scripts/om-core.min.js",
+    "dist/scripts/om-core.js",
     "dist/fonts/glyphicons-halflings-regular.eot",
     "dist/fonts/glyphicons-halflings-regular.svg",
     "dist/fonts/glyphicons-halflings-regular.ttf",
