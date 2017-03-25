@@ -33,9 +33,11 @@ function packTemplates(inputStream,
 }
 
 /**
- * Packaging styles
- * @param watch
- * @param inputStream
+ * Packaging styles by including all bower dependencies collected by wiredep to the main SCSS file specified as the
+ * {@code inputStream}
+ *
+ * @param watch true/false to enable browserSync reload
+ * @param inputStream the input stream must be the main SCSS file to inject SCSS sources
  * @param outputOpts
  */
 function packStyles(watch, inputStream,

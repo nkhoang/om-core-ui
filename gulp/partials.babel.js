@@ -9,7 +9,7 @@ gulp.task('partials', () => packTemplates(gulp.src([
   path.join(conf.paths.src, '/**/*.html')
 ]), {
   templateName : 'templateCacheHtml.js',
-  dest         : `${conf.paths.tmp}/partials/`,
+  dest         : path.join(conf.paths.dist, '/scripts/'),
   moduleName   : 'com.nkhoang.core',
   root         : '/'
 }));

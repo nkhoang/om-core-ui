@@ -27,7 +27,7 @@ exports.paths = {
 exports.wiredep = {
   exclude   : [
     /bootstrap.js$/,
-    /bootstrap-sass-official\/.*\.js/,
+    /bootstrap-sass\/.*\.js/,
     /bootstrap\.css/,
     'bower_components/datatables/media/css/jquery.dataTables.css',
     'bower_components/datatables-tabletools/css/dataTables.tableTools.css',
