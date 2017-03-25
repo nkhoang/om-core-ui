@@ -39,6 +39,7 @@ function packing() {
           {
             stats: 'verbose',
             output: {
+              libraryTarget: 'umd',
               filename: 'om-core.js'
             }
           },
@@ -56,7 +57,8 @@ function packing() {
         }
       ))
       .pipe($.ngAnnotate())
-      .pipe($.wrap("(function(){\n'use strict';\n<%= contents %>\n})();"))
+      // for now we temporarily comment out the IIFE
+      // .pipe($.wrap("(function(){\n'use strict';\n<%= contents %>\n})();"))
       // create a full version
       .pipe(gulp.dest(path.join(conf.paths.dist, '/scripts/')))
       .pipe($.uglify(
