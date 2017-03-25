@@ -9,5 +9,6 @@ const { packScripts } = require('./utils.babel');
 gulp.task('scripts', () => packScripts(false, gulp.src(path.join(conf.paths.src, '/main.js')), {
   libraryTarget : 'umd',
   filename      : 'om-core.js',
-  minFilename   : 'om-core.min.js'
+  minFilename   : 'om-core.min.js',
+  dest          : path.join(conf.paths.dist, '/scripts/')
 }));

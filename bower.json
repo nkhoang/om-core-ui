@@ -4,13 +4,7 @@
   "homepage": "https://github.com/nkhoang/om-core-ui",
   "main": [
     "dist/styles/om-core.css",
-    "dist/scripts/om-core.min.js",
-    "dist/scripts/om-core.js",
-    "dist/fonts/glyphicons-halflings-regular.eot",
-    "dist/fonts/glyphicons-halflings-regular.svg",
-    "dist/fonts/glyphicons-halflings-regular.ttf",
-    "dist/fonts/glyphicons-halflings-regular.woff",
-    "dist/fonts/glyphicons-halflings-regular.woff2"
+    "dist/scripts/om-core.js"
   ],
   "ignore": [],
   "dependencies": {

@@ -10,6 +10,80 @@ const webpackStream = require('webpack-stream');
 const webpack = require('webpack');
 const $ = require('gulp-load-plugins')();
 const browserSync = require('browser-sync');
+const wiredep = require('wiredep').stream;
+
+function packTemplates(inputStream,
+  outputOpts = {
+    templateName : 'templateCacheHtml.js',
+    dest         : path.join(conf.paths.tmp, '/partials/'),
+    moduleName   : '',
+    root         : ''
+  }) {
+  return inputStream
+    .pipe($.minifyHtml({
+      empty  : true,
+      spare  : true,
+      quotes : true
+    }))
+    .pipe($.angularTemplatecache(outputOpts.templateName, {
+      module : outputOpts.moduleName,
+      root   : outputOpts.root
+    }))
+    .pipe(gulp.dest(outputOpts.dest));
+}
+
+/**
+ * Packaging styles
+ * @param watch
+ * @param inputStream
+ * @param outputOpts
+ */
+function packStyles(watch, inputStream,
+  outputOpts = {
+    filename   : 'styles.css',
+    ignorePath : '',
+    dest       : path.join(conf.paths.dist, '/styles/')
+  }) {
+  const sassOptions = {
+    style : 'expanded'
+  };
+
+  const injectFiles = gulp.src(
+    [
+      path.join(conf.paths.src, '/**/*.scss'),
+      outputOpts.ignorePath
+    ], {
+      read : false
+    }
+  );
+
+  const injectOptions = {
+    transform    : filePath => `@import "${filePath}";`,
+    starttag     : '// injector',
+    endtag       : '// endinjector',
+    addRootSlash : false
+  };
+  let outputStream = eventStream.merge([
+    inputStream
+      .pipe($.inject(injectFiles, injectOptions))
+      .pipe(wiredep(_.extend({}, conf.wiredep)))
+      .pipe($.sourcemaps.init())
+      .pipe($.sass(sassOptions))
+      .on('error', conf.errorHandler('Sass'))
+      .pipe($.autoprefixer())
+      .on('error', conf.errorHandler('Autoprefixer'))
+      .pipe($.sourcemaps.write())
+      .pipe($.replace('../bower_components/bootstrap-sass/assets/fonts/bootstrap/', '../fonts/'))
+      .pipe($.csso())
+      .pipe($.rename(outputOpts.filename))
+      .pipe(gulp.dest(outputOpts.dest))
+  ]);
+
+  if (watch) {
+    outputStream = outputStream.pipe(browserSync.reload({ stream : true }));
+  }
+  return outputStream;
+}
 
 /**
  * Run all the required steps for scripts input stream
@@ -20,7 +94,8 @@ function packScripts(watch, inputStream,
   outputOpts = {
     libraryTarget : 'umd',
     filename      : 'scripts.babel.js',
-    minFilename   : 'scripts.min.js'
+    minFilename   : 'scripts.min.js',
+    dest          : path.join(conf.paths.dist, '/scripts/')
   }, callback) {
   let isWatching = watch;
   let webpackOptions = {
@@ -82,7 +157,7 @@ function packScripts(watch, inputStream,
       // for now we temporarily comment out the IIFE
       // .pipe($.wrap("(function(){\n'use strict';\n<%= contents %>\n})();"))
       // create a full version
-      .pipe(gulp.dest(path.join(conf.paths.dist, '/scripts/')))
+      .pipe(gulp.dest(outputOpts.dest))
       .pipe($.uglify(
         {
           preserveComments : $.uglifySaveLicense
@@ -90,11 +165,13 @@ function packScripts(watch, inputStream,
       .on('error', conf.errorHandler('Uglify'))
       // export min file
       .pipe($.rename(outputOpts.minFilename))
-      .pipe(gulp.dest(path.join(conf.paths.dist, '/scripts/')))
+      .pipe(gulp.dest(outputOpts.dest))
       .pipe($.size())
   ]);
 }
 
 export default {
-  packScripts
+  packScripts,
+  packStyles,
+  packTemplates
 };

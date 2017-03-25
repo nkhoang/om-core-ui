@@ -5,24 +5,8 @@ const path = require('path');
 const gulp = require('gulp');
 const conf = require('./conf');
 const $ = require('gulp-load-plugins')({
-  pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
+  pattern : ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
-
-
-gulp.task('partials', () => gulp.src([
-  path.join(conf.paths.src, '/**/*.html')
-])
-  .pipe($.minifyHtml({
-    empty: true,
-    spare: true,
-    quotes: true
-  }))
-  .pipe($.angularTemplatecache('templateCacheHtml.js', {
-    module: 'com.nkhoang.core',
-    root: '/'
-  }))
-  .pipe(gulp.dest(`${conf.paths.tmp}/partials/`)));
-
 
 /**
  * Only apply to bower dependencies' fonts
