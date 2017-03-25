@@ -1,4 +1,5 @@
 /* global require */
+/* eslint-disable import/no-extraneous-dependencies */
 /**
  *  This file contains the variables used in other gulp files
  *  which defines tasks
@@ -13,9 +14,9 @@ const gutil = require('gulp-util');
  *  The main paths of your project handle these with care
  */
 exports.paths = {
-  src: 'src',
-  dist: 'dist',
-  tmp: '.tmp'
+  src  : 'src',
+  dist : 'dist',
+  tmp  : '.tmp'
 };
 
 /**
@@ -24,7 +25,7 @@ exports.paths = {
  *  to inject css preprocessor deps and js files in karma
  */
 exports.wiredep = {
-  exclude: [
+  exclude   : [
     /bootstrap.js$/,
     /bootstrap-sass-official\/.*\.js/,
     /bootstrap\.css/,
@@ -33,7 +34,7 @@ exports.wiredep = {
     'bower_components/datatables-colvis/css/dataTables.colVis.css',
     'bower_components/requirejs/require.js',
     'bower_components/bootstrap-sass/assets/javascripts/'],
-  directory: 'bower_components'
+  directory : 'bower_components'
 };
 
 /**
@@ -41,7 +42,7 @@ exports.wiredep = {
  */
 exports.errorHandler = function (title) {
   return function (err) {
-    gutil.log(gutil.colors.red('[' + title + ']'), err.toString());
+    gutil.log(gutil.colors.red(`[${title}]`), err.toString());
     this.emit('end');
   };
 };

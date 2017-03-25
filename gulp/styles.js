@@ -1,4 +1,5 @@
 /* global require */
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const gulp = require('gulp');
 const conf = require('./conf');
@@ -9,25 +10,23 @@ const _ = require('lodash');
 
 gulp.task('styles', () => {
   const sassOptions = {
-    style: 'expanded'
+    style : 'expanded'
   };
 
   const injectFiles = gulp.src(
     [
       path.join(conf.paths.src, '/**/*.scss'),
-      path.join('!' + conf.paths.src, '/main.scss')
+      path.join(`!${conf.paths.src}/main.scss`)
     ], {
-      read: false
+      read : false
     }
   );
 
-  var injectOptions = {
-    transform: (filePath) => {
-      return '@import "' + filePath + '";';
-    },
-    starttag: '// injector',
-    endtag: '// endinjector',
-    addRootSlash: false
+  const injectOptions = {
+    transform    : filePath => `@import "${filePath}";`,
+    starttag     : '// injector',
+    endtag       : '// endinjector',
+    addRootSlash : false
   };
 
   // we need to build pages: "login", "404" and "index"
@@ -47,6 +46,5 @@ gulp.task('styles', () => {
       .pipe($.csso())
       .pipe($.rename('om-core.css'))
       .pipe(gulp.dest(path.join(conf.paths.dist, '/styles/')))
-
   ]);
 });
