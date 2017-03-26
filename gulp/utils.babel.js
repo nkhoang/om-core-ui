@@ -79,6 +79,7 @@ function packStyles(watch, inputStream,
       .pipe($.csso())
       .pipe($.rename(outputOpts.filename))
       .pipe(gulp.dest(outputOpts.dest))
+      .pipe($.size({ title : `${outputOpts.dest}`, showFiles : true }))
   ]);
 
   if (watch) {
@@ -160,6 +161,7 @@ function packScripts(watch, inputStream,
       // .pipe($.wrap("(function(){\n'use strict';\n<%= contents %>\n})();"))
       // create a full version
       .pipe(gulp.dest(outputOpts.dest))
+      .pipe($.size({ title : `${outputOpts.dest}`, showFiles : true }))
       .pipe($.uglify(
         {
           preserveComments : $.uglifySaveLicense
@@ -168,7 +170,7 @@ function packScripts(watch, inputStream,
       // export min file
       .pipe($.rename(outputOpts.minFilename))
       .pipe(gulp.dest(outputOpts.dest))
-      .pipe($.size())
+      .pipe($.size({ title : `${outputOpts.dest}`, showFiles : true }))
   ]);
 }
 
